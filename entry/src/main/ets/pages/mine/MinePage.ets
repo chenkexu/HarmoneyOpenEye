@@ -78,7 +78,7 @@ export struct MinePage {
   }
 
   @Builder
-  itemBuilder(title: string, icon: Resource, onItemClick?: () => void) {
+  itemBuilder(title: string, icon: Resource, onItemClick: () => void) {
     Stack({ alignContent: Alignment.Bottom }) {
       Row() {
         Image(icon).width($r('app.float.size_25')).height($r('app.float.size_25'))
