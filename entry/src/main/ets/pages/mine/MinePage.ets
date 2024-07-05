@@ -7,13 +7,15 @@ import { RoutePath } from '../../route/RoutePath'
 import { Router } from '../../route/Router'
 import { LogUtils } from '../../utils/LogUtils'
 import { StorageUtils } from '../../utils/StorageUtils'
+import { ContainerRouteParams } from '../../route/RouteParams'
 
 @Component
 export struct MinePage {
   @State dialogTitle: Resource = $r('app.string.dialog_about_title')
   @State dialogContent: Resource = $r('app.string.project_desc')
   dialogController: CustomDialogController = new CustomDialogController({
-    builder: CommonDialog({ title: $dialogTitle, description: $dialogContent, showPositive: false })
+    builder: CommonDialog({ title: $dialogTitle, description: $dialogContent, showPositive: false }),
+    alignment: DialogAlignment.Center
   })
 
   aboutToAppear() {
@@ -21,7 +23,8 @@ export struct MinePage {
   }
 
   aboutToDisappear() {
-    this.dialogController = null;
+    //TODO 这里没有
+    // this.dialogController = null;
   }
 
   build() {
@@ -44,13 +47,13 @@ export struct MinePage {
         .alignItems(HorizontalAlign.Center)
 
         this.itemBuilder("关注", $r('app.media.icon_focus'), () => {
-          Router.push(RoutePath.ContainerPage, { "containerType": "focus" })
+          Router.push(RoutePath.ContainerPage, { "containerType": "focus" } as ContainerRouteParams)
         })
         this.itemBuilder("分类", $r('app.media.icon_type'), () => {
-          Router.push(RoutePath.ContainerPage, { "containerType": "category" })
+          Router.push(RoutePath.ContainerPage, { "containerType": "category" } as ContainerRouteParams)
         })
         this.itemBuilder("热门", $r('app.media.icon_topic'), () => {
-          Router.push(RoutePath.ContainerPage, { "containerType": "topic" })
+          Router.push(RoutePath.ContainerPage, { "containerType": "topic" } as ContainerRouteParams)
         })
         this.itemBuilder("测试Result校验", $r('app.media.icon_topic'), () => {
           Router.push(RoutePath.TestPage)
@@ -75,7 +78,7 @@ export struct MinePage {
   }
 
   @Builder
-  itemBuilder(title: string, icon: Resource, onItemClick?: () => void) {
+  itemBuilder(title: string, icon: Resource, onItemClick: () => void) {
     Stack({ alignContent: Alignment.Bottom }) {
       Row() {
         Image(icon).width($r('app.float.size_25')).height($r('app.float.size_25'))

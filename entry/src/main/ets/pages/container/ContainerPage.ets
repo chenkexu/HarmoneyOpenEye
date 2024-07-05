@@ -1,4 +1,5 @@
 import router from '@ohos.router'
+import { ContainerRouteParams } from '../../route/RouteParams'
 import { CommonTopBar } from '../../views/CommonTopBar'
 import { CategoryPage } from '../find/category/CategoryPage'
 import { FocusPage } from '../find/focus/FocusPage'
@@ -13,13 +14,14 @@ struct ContainerPage {
   @Provide homeTabSelected: number = -1
 
   aboutToAppear() {
-    this.containerType = router.getParams()["containerType"]
+    let routeParams = router.getParams() as ContainerRouteParams
+    this.containerType = routeParams.containerType
     this.convertTitle()
   }
 
   build() {
     Column() {
-      CommonTopBar({ title: this.title, alpha: 1 })
+      CommonTopBar({ title: this.title })
       Stack() {
         this.buildContent()
       }.layoutWeight(1)

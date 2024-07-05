@@ -20,6 +20,7 @@ struct MainPage {
   //全局的loading
   loadingDialogController: CustomDialogController = new CustomDialogController({
     builder: LoadingDialog({ loadingTips: this.loadingTips }),
+    alignment: DialogAlignment.Center,
     autoCancel: false,
     gridCount: 2,
     cancel: () => {
@@ -29,19 +30,21 @@ struct MainPage {
 
   aboutToAppear() {
     emitter.on(loadingEvent, (event) => {
-      if (event.data.showLoading == true && !this.loadingShow) {
+      if (event.data?.showLoading == true && !this.loadingShow) {
         this.loadingShow = true
         this.loadingTips = event.data.loadingTips
         this.loadingDialogController.open()
-      } else if (event.data.showLoading == false) {
+      } else if (event.data?.showLoading == false) {
         this.loadingDialogController.close()
         this.loadingShow = false
       }
     })
   }
 
+
+
+
   aboutToDisappear() {
-    this.loadingDialogController = null
     emitter.off(EventKeys.LOADING_DIALOG_EVENT)
   }
 
@@ -87,10 +90,12 @@ struct MainPage {
   }
 
   onPageHide() {
+    this.getScreenResume('11')
     LogUtils.error("页面不可见>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
   }
 
-  @Builder TabBottom(item: TabItem, index: number) {
+  @Builder
+  TabBottom(item: TabItem, index: number) {
     Column() {
       Image(this.selectedIndex == index ? item.imageActivated : item.imageOriginal)
         .height($r('app.float.tab_image_size'))
@@ -115,4 +120,14 @@ struct MainPage {
     .width(CommonConstants.FULL_WIDTH_PERCENT)
     .backgroundColor($r("app.color.color_f5f5f5"))
   }
+
+  // 定义
+  getScreenResume(name: string, bust?: number, age: number = 24) {
+    if (bust) {
+      console.log(`胸围d: ${bust}`);
+    }
+    console.log(`名称: ${name}, 年龄：${age}`);
+  }
+
+
 }
