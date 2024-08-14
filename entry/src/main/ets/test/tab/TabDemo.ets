@@ -99,5 +99,16 @@ struct TabDemo {
     .height(50)
     .justifyContent(FlexAlign.Center)
   }
+
+
+  @Builder tabContent(){
+    Scroll(){
+      Column(){
+
+      }
+
+    }
+
+  }
 }
 

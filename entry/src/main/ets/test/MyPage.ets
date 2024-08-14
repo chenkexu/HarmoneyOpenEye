@@ -1,5 +1,7 @@
 import router from '@ohos.router'
+import { MyDialog } from './dialog/CustomDialogNew'
 import { HelloComponent } from './HelloComponent'
+import { MyChild } from './MyChild'
 import { Tmp } from './Tmp'
 
 
@@ -9,11 +11,26 @@ struct MyPage {
   @State showChild: boolean = true
   @State heightValue: number = 100
 
+  //全局的loading
+  loadingDialogController: CustomDialogController = new CustomDialogController({
+    builder: MyDialog(),
+    alignment: DialogAlignment.Center,
+    autoCancel: false,
+    gridCount: 2,
+  })
+
   build() {
     Column({ space: 10 }) {
       if (this.showChild) {
         Child()
       }
+      MyChild(){
+        Text('我是MyChild下面的View').fontSize(22).onClick(()=>{
+
+        })
+      }
+
+
       Button('点击隐藏child').fontSize(33).onClick(() => {
         if (this.showChild == true) {
           this.showChild = false
@@ -178,7 +195,7 @@ struct Child2 {
       Text('FancyA')
         .globalFancy()
         .fontSize(30)
-      Text('Extend的用法').fancyText(12, Color.Gray)
+      Text('Extend的用法').fancyText(12,13)
         .stateStyles({
           normal: normalStyle,
           pressed: pressedStyle,
@@ -215,10 +232,13 @@ struct Child2 {
   .backgroundColor(Color.Red)
 }
 
-@Extend(Text) function fancyText(weightValue: number, color: Color) {
+@Extend(Text)
+function fancyText(weightValue: number,height:number, color: Color = Color.Red) {
   .fontStyle(FontStyle.Italic)
   .fontWeight(weightValue)
   .backgroundColor(color)
   .fontSize(20)
   .fontColor(Color.Black)
 }
+
+

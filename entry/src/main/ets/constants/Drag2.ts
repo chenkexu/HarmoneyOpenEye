@@ -20,7 +20,6 @@ let map = new HashMap<string, number>()
 
 map.set("1",1)
 map.remove("1")
-map.
 
 
 console.log("当前数据类型3：" + typeof numberArray)

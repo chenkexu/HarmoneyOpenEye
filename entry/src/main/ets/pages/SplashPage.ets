@@ -14,9 +14,10 @@ import { RoutePath } from '../route/RoutePath'
 @Entry
 @Component
 struct SplashPage {
+
   aboutToAppear() {
     setTimeout(() => {
-      router.replaceUrl({ url: "test/list/HelloTestPage2"})
+      router.replaceUrl({ url: 'pages/MainPage'})
     }, 2000)
   }
 
